@@ -46,6 +46,9 @@ type CustomResource struct {
 	// Version which should be defined in a const above
 	Version string
 
+	// ShortNames allow shorter string to match your resource on the CLI
+	ShortNames []string
+
 	// Scope of the CRD. Namespaced or cluster
 	Scope apiextensionsv1beta1.ResourceScope
 
@@ -90,9 +93,10 @@ func createCRD(context Context, resource CustomResource) error {
 			Version: resource.Version,
 			Scope:   resource.Scope,
 			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
-				Singular: resource.Name,
-				Plural:   resource.Plural,
-				Kind:     resource.Kind,
+				Singular:   resource.Name,
+				Plural:     resource.Plural,
+				Kind:       resource.Kind,
+				ShortNames: resource.ShortNames,
 			},
 		},
 	}
